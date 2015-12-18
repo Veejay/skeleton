@@ -74,7 +74,9 @@ class Hash
   end
 
   def except!(*keys)
-    keys.each { |key| delete(key) }
+    keys.each do |key|
+      delete(key)
+    end
     self
   end
 
@@ -84,4 +86,4 @@ class Hash
 end
 
 skeleton = Skeleton.new "foo.json"
-binding.pry
+puts "Skeleton is #{skeleton.pristine? ? "" : "not"} pristine"
