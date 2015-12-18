@@ -26,9 +26,9 @@ class Row
 
   def widgets
     @widgets ||= if widget?
-      [self.content]
+      [@content]
     else
-      self.content.widgets
+      @content.widgets
     end
   end
 end

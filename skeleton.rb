@@ -5,6 +5,7 @@ require 'json'
 require_relative './section'
 
 # Provides a wrapper interface to the widgets
+# There must be a way to just forward to the collection
 class WidgetCollection
   def initialize collection
     @collection = collection
@@ -18,6 +19,10 @@ class WidgetCollection
 
   def pluck attribute
     @collection.map &attribute
+  end
+
+  def detect &block
+    @collection.detect
   end
 end
 
@@ -34,6 +39,10 @@ class Skeleton
 
   def widgets
     @widgets ||= WidgetCollection.new @sections.flat_map &:widgets
+  end
+
+  def replace(widget:, by: )
+    widgets.find_by(id: widget).id = by
   end
 
   # The most important method, it must recreate a pristine JSON document

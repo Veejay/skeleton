@@ -9,10 +9,7 @@ class SubRow
   end
 
   def widgets
-    @widgets ||= @columns.reduce([]) do |widgets, column|
-      widgets += column.widgets
-      widgets
-    end
+    @widgets ||= @columns.flat_map &:widgets
   end
 
   def to_hash
