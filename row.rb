@@ -2,7 +2,6 @@ require_relative './widget'
 require_relative './sub_row'
 require 'pry'
 class Row
-  attr_accessor :type, :content, :widgets
   def initialize(row)
     if row.has_key?('subrow')
       @type = "subrow"

@@ -1,6 +1,5 @@
 require_relative './column'
 class SubRow
-  attr_accessor :columns, :metadata, :widgets
   def initialize(data)
     row = data.delete('subrow')
     @columns = row.map do |column|

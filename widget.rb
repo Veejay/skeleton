@@ -1,5 +1,4 @@
 class Widget
-  attr_accessor :id
   def initialize(widget)
     @id = widget['id']
     @metadata = widget

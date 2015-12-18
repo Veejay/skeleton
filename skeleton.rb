@@ -22,8 +22,6 @@ class WidgetCollection
 end
 
 class Skeleton
-  attr_accessor :sections
-  attr_reader :metadata
   def initialize path
     skeleton = JSON.parse File.read path
     data = skeleton['children'][0]

@@ -1,6 +1,5 @@
 require_relative './column'
 class Section
-  attr_accessor :columns, :metadata, :widgets
   def initialize(section)
     columns = section.delete('row')
     @columns = columns.map do |column|
