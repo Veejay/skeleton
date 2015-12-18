@@ -21,6 +21,10 @@ class Row
     return @type == "widget"
   end
 
+  def to_hash
+    @content.to_hash.stringify_keys
+  end
+
   def widgets
     @widgets ||= if widget?
       [self.content]

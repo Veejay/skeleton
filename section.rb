@@ -13,4 +13,10 @@ class Section
     @widgets ||= columns.flat_map &:widgets
   end
 
+  def to_hash
+    {
+      "row" => @columns.map(&:to_hash)
+    }.merge(@metadata)
+  end
+
 end

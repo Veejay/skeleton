@@ -10,9 +10,12 @@ class Column
   end
 
   def widgets
-    @widgets ||= @rows.reduce([]) do |widgets, row|
-      widgets += row.widgets
-      widgets
-    end
+    @widgets ||= @rows.flat_map &:widgets
+  end
+
+  def to_hash
+    {
+      "items" => @rows.map(&:to_hash)
+    }.merge(@metadata)
   end
 end

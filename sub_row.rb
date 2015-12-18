@@ -6,7 +6,7 @@ class SubRow
     @columns = row.map do |column|
       Column.new column
     end
-    @metadata = row
+    @metadata = data
   end
 
   def widgets
@@ -14,5 +14,11 @@ class SubRow
       widgets += column.widgets
       widgets
     end
+  end
+
+  def to_hash
+    {
+      "subrow" => @columns.map(&:to_hash)
+    }.merge(@metadata)
   end
 end

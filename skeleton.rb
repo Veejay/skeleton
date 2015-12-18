@@ -27,11 +27,11 @@ class Skeleton
   def initialize path
     skeleton = JSON.parse File.read path
     data = skeleton['children'][0]
-    sections = data.delete('bgSection')
+    sections = data.fetch('bgSection')
     @sections = sections.map do |section|
       Section.new(section)
     end
-    @metadata = data
+    @metadata = data.except('bgSection')
   end
 
   def widgets
@@ -40,13 +40,43 @@ class Skeleton
 
   # The most important method, it must recreate a pristine JSON document
   # representing the skeleton
-  def to_json
+  def to_hash
+    {
+      "children" => [
+        {
+          "bgSection" => @sections.map(&:to_hash)
+        }.merge(@metadata)
+      ]
+    }
+  end
+
+  def pristine?
+    skeleton = JSON.parse File.read "foo.json"
+    skeleton.eql? to_hash
   end
 
   def deleted_widget_ids(widget_ids)
     widgets.pluck(:id) - widget_ids
   end
 
+end
+
+class Hash
+  def stringify_keys
+    self.reduce(Hash.new) do |hash, (key, value)|
+      hash[key.to_s] = value
+      hash
+    end
+  end
+
+  def except!(*keys)
+    keys.each { |key| delete(key) }
+    self
+  end
+
+  def except(*keys)
+    dup.except! *keys
+  end
 end
 
 skeleton = Skeleton.new "foo.json"
