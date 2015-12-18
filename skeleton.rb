@@ -21,9 +21,6 @@ class WidgetCollection
     @collection.map &attribute
   end
 
-  def detect &block
-    @collection.detect
-  end
 end
 
 class Skeleton
