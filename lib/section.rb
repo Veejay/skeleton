@@ -1,11 +1,10 @@
 require_relative './column'
 class Section
-  include Container
-  def initialize(section)
-    @metadata = section
-    @columns = @metadata.fetch('row').map do |column|
+  def initialize section
+    @columns = section.fetch('row').map do |column|
       Column.new column
     end
+    @metadata = section
   end
 
   def widgets

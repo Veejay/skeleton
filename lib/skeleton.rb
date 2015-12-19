@@ -32,14 +32,13 @@ class SkeletonFileExtractor
 
   def initialize path
     @skeleton = JSON.parse File.read path
-    @data = @skeleton['children'][0]
   end
 
   # Extracts a give property and saves the other properties of the Object
   # for later use
   def extract key
     self.tap do
-      @extracted, @metadata = @data.fetch! key
+      @extracted, @metadata = @skeleton['children'][0].fetch! key
     end
   end
 
@@ -54,6 +53,7 @@ class SkeletonFileExtractor
 end
 
 class Skeleton
+  attr_reader :extractor
   def initialize path
     @extractor = SkeletonFileExtractor.new(path)
     @sections, @metadata = @extractor.extract('bgSection').wrap(:section)
@@ -119,12 +119,3 @@ class Hash
     [fetch(key), except(key)]
   end
 end
-
-skeleton = Skeleton.new "bigger.json"
-before_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
-100.times do
-  skeleton.pristine?
-end
-after_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
-
-puts "Memory usage increased by #{after_sample - before_sample} MB"
