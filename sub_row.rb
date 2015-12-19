@@ -1,11 +1,11 @@
 require_relative './column'
 class SubRow
   def initialize(data)
-    row = data.delete('subrow')
+    row = data.fetch('subrow')
     @columns = row.map do |column|
       Column.new column
     end
-    @metadata = data
+    @metadata = data.except('subrow')
   end
 
   def widgets

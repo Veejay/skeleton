@@ -1,8 +1,10 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     coderay (1.1.0)
     json (1.8.2)
     method_source (0.8.2)
+    newrelic_rpm (3.14.1.311)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -14,4 +16,5 @@ PLATFORMS
 
 DEPENDENCIES
   json
+  newrelic_rpm
   pry

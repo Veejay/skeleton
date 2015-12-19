@@ -1,11 +1,11 @@
 require_relative './row'
 class Column
   def initialize(column)
-    rows = column.delete('items')
+    rows = column.fetch('items')
     @rows = rows.map do |row|
       Row.new row
     end
-    @metadata = column
+    @metadata = column.except('items')
   end
 
   def widgets

@@ -2,11 +2,11 @@ require_relative './column'
 class Section
   #attr_reader :columns
   def initialize(section)
-    columns = section.delete('row')
+    columns = section.fetch('row')
     @columns = columns.map do |column|
       Column.new column
     end
-    @metadata = section
+    @metadata = section.except('row')
   end
 
   def widgets

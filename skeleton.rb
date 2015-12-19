@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'pry'
 require 'json'
+require 'newrelic_rpm'
 require_relative './section'
 
 # Provides a wrapper interface to the widgets
@@ -55,7 +56,7 @@ class Skeleton
   end
 
   def pristine?
-    skeleton = JSON.parse File.read "foo.json"
+    skeleton = JSON.parse File.read "bigger.json"
     skeleton.eql? to_hash
   end
 
@@ -85,5 +86,11 @@ class Hash
   end
 end
 
-skeleton = Skeleton.new "foo.json"
-puts "Skeleton is#{skeleton.pristine? ? "" : " not"} pristine"
+skeleton = Skeleton.new "bigger.json"
+before_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
+10000.times do
+  skeleton.pristine?
+end
+after_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
+
+puts "Memory usage increased by #{after_sample - before_sample} MB"
