@@ -3,7 +3,7 @@ require_relative "../lib/skeleton"
 
 describe Skeleton do
   before do
-    @skeleton = Skeleton.new "bigger.json"
+    @skeleton = Skeleton.new "fixtures/bigger.json"
   end
 
   describe "Data extraction" do
@@ -18,11 +18,13 @@ describe Skeleton do
   end
 
   describe "Memory consumption" do
-    before_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
-    1000.times do
-      @skeleton.pristine?
+    it "should be reasonable in its use of memory" do
+      before_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
+      1000.times do
+        @skeleton.pristine?
+      end
+      after_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
+      (after_sample - before_sample).must_be :<, 30
     end
-    after_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
-    (after_sample - before_sample).must_not > 30
   end
 end
