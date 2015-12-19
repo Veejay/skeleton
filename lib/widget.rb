@@ -8,4 +8,8 @@ class Widget
   def to_hash
     @metadata.merge({id: @id})
   end
+
+  def widgets
+    Array.new(self)
+  end
 end

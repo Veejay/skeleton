@@ -1,5 +1,5 @@
 require_relative './column'
-class SubRow
+class SubSection
   def initialize(data)
     row = data.fetch('subrow')
     @columns = row.map do |column|

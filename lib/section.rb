@@ -1,12 +1,11 @@
 require_relative './column'
 class Section
-  #attr_reader :columns
+  include Container
   def initialize(section)
-    columns = section.fetch('row')
-    @columns = columns.map do |column|
+    @metadata = section
+    @columns = @metadata.fetch('row').map do |column|
       Column.new column
     end
-    @metadata = section.except('row')
   end
 
   def widgets
