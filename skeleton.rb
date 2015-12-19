@@ -86,4 +86,4 @@ class Hash
 end
 
 skeleton = Skeleton.new "foo.json"
-puts "Skeleton is #{skeleton.pristine? ? "" : "not"} pristine"
+puts "Skeleton is#{skeleton.pristine? ? "" : " not"} pristine"
