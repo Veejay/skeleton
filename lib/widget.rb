@@ -10,6 +10,6 @@ class Widget
   end
 
   def widgets
-    Array.new(self)
+    [self]
   end
 end
