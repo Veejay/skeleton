@@ -1,5 +1,5 @@
 require "minitest/autorun"
-require_relative "../lib/skeleton"
+require_relative "../lib/classes/skeleton"
 
 describe Skeleton do
   before do

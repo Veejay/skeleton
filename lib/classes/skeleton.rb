@@ -4,13 +4,12 @@ require 'pry'
 require 'json'
 require 'newrelic_rpm'
 require_relative './section'
+require_relative '../modules/refinements/hash_refinements'
 
-# Provides a wrapper interface to the widgets
-# There must be a way to just forward to the collection
-
-
+using HashRefinements
 
 class WidgetCollection
+
   def initialize collection
     @collection = collection
   end
@@ -28,6 +27,7 @@ class WidgetCollection
 end
 
 class SkeletonFileExtractor
+
   attr_reader :skeleton
 
   def initialize path
@@ -53,6 +53,7 @@ class SkeletonFileExtractor
 end
 
 class Skeleton
+
   attr_reader :extractor
   def initialize path
     @extractor = SkeletonFileExtractor.new(path)
@@ -94,28 +95,4 @@ class Skeleton
     widgets.pluck(:id) - widget_ids
   end
 
-end
-
-class Hash
-  def stringify_keys
-    reduce(Hash.new) do |hash, (key, value)|
-      hash[key.to_s] = value
-      hash
-    end
-  end
-
-  def except!(*keys)
-    keys.each do |key|
-      delete(key)
-    end
-    self
-  end
-
-  def except(*keys)
-    dup.except! *keys
-  end
-
-  def fetch! key
-    [fetch(key), except(key)]
-  end
 end
