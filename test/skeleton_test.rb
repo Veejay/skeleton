@@ -27,4 +27,16 @@ describe Skeleton do
       (after_sample - before_sample).must_be :<, 30
     end
   end
+
+  describe "Correctness" do
+    it "should replace widget ids in the skeleton" do
+      @skeleton.replace widget: "567299469cfcf04ba5000001", by: "Wu Tang Clan"
+      @skeleton.widgets.any? { | widget | widget.id.eql?("567299469cfcf04ba5000001")}.must_equal false
+    end
+
+    it "should replace widget ids in the skeleton with a replacement id" do
+      @skeleton.replace widget: "567299469cfcf04ba5000001", by: "Wu Tang Clan"
+      @skeleton.widgets.detect{ | widget | widget.id.eql? "Wu Tang Clan"}.must_be_instance_of Widget
+    end
+  end
 end

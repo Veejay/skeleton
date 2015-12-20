@@ -9,6 +9,12 @@ require_relative '../modules/refinements/hash_refinements'
 using HashRefinements
 
 class WidgetCollection
+  # The Forwardable module is helpful for wrapper interfaces
+  # that just act as a nicer facade for the exterior world to manipulate
+  # the underlying data
+  extend Forwardable
+
+  def_delegators :@collection, :any?, :detect, :select
 
   def initialize collection
     @collection = collection
