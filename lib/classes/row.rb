@@ -7,14 +7,13 @@ using HashRefinements
 
 class Row
 
+  extend Forwardable
   include ChildWrapper
+
+  def_delegator :@content, :widgets
 
   def initialize row
     @content = ChildWrapper.wrap(row)
-  end
-
-  def widgets
-    @content.widgets  
   end
 
   def to_hash
