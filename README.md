@@ -1,7 +1,16 @@
 # Skeleton
 
 This code should be the basis for some of the most byzantine methods in `versions.rb`.
-
+## Intended use
+```ruby
+  # Where the skeleton is readable
+  @skeleton = Skeleton.new skeleton
+  widgets.each do |widget|
+    ...
+    @skeleton.replace widget: old_id, by: new_id
+  end
+  @version.set skeleton: skeleton.to_hash
+```
 ## TODO
 
 - Clean up `require`s, `extend`s and `include`s
