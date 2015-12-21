@@ -20,7 +20,7 @@ describe Skeleton do
   describe "Memory consumption" do
     it "should be reasonable in its use of memory" do
       before_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
-      1000.times do
+      10.times do
         @skeleton.pristine?
       end
       after_sample = NewRelic::Agent::Samplers::MemorySampler.new.sampler.get_sample
