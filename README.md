@@ -4,6 +4,7 @@ This code should be the basis for some of the most byzantine methods in `version
 
 ## TODO
 
+- Clean up `require`s, `extend`s and `include`s
 - ~~Remove the code to read the skeleton from a file, the skeleton will be readily available in real life~~
 - ~~The code for the different `widgets` methods in a few of the classes is heavily repetitive. Seems ripe for refactoring~~
 - ~~In a few of the `initialize` methods, we mutate things, no need for that~~
