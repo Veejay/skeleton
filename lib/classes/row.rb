@@ -1,19 +1,17 @@
 require_relative './widget'
 require_relative './sub_section'
-require_relative '../modules/child_wrapper'
-require_relative '../modules/refinements/hash_refinements'
 
 using HashRefinements
 
 class Row
 
   extend Forwardable
-  include ChildWrapper
 
   def_delegator :@content, :widgets
 
-  def initialize row
-    @content = ChildWrapper.wrap(row)
+  def initialize child
+    klass = child.has_key?('subrow') ? SubSection : Widget
+    @content = klass.new child
   end
 
   def to_hash
