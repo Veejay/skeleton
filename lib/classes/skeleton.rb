@@ -66,8 +66,7 @@ class Skeleton
     @sections, @metadata = @extractor.extract('bgSection').wrap(:section)
   end
 
-  # FIXME: This method is used by all entities of the library who
-  # are actually collection of other entities
+
   # A skeleton is a collection of sections
   # A section is a collection of columns
   # A column is a collection of rows
